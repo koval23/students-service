@@ -4,6 +4,7 @@ import ait.cohort34.student.model.Student;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class StudentRepositoryImpl implements StudentRepository {
@@ -32,41 +33,23 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public List<Student> findStudentsByName(String name) {
-        List<Student> studentList = new ArrayList<>();
-        for (Integer id : students.keySet()) {
-            Student student = students.get(id);
-            if (student.getName().equalsIgnoreCase(name)) {
-                studentList.add(student);
-            }
-        }
-        return studentList;
+    public Long findStudentsByNamesQuantity(Set<String> names) {
+        return students.values().stream()
+                .filter(student -> names.contains(student.getName()))
+                .count();
     }
 
-    @Override
-    public Long findStudentsByNamesQuantity(Set<String> names) {
-        Long countStudeny = 0L;
-        for (Integer id : students.keySet()) {
-            Student student = students.get(id);
-            for (String name : names) {
-                if (student.getName().equals(name)) {
-                    countStudeny++;
-                }
-            }
-        }
-        return countStudeny;
+    public List<Student> findStudentsByName(String name) {
+        return students.values().stream()
+                .filter(student -> student.getName().equals(name))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Student> findStudentsByMinScore(String exam, Integer minScore) {
-        List<Student> studentList = new ArrayList<>();
-        for (Integer id : students.keySet()) {
-            Student student = students.get(id);
-            if (student.getScores().containsKey(exam) && student.getScores().get(exam) > minScore) {
-                studentList.add(student);
-            }
-        }
-        return studentList;
+        return students.values().stream()
+                .filter(student -> student.getScores().containsKey(exam) && student.getScores().get(exam) > minScore)
+                .collect(Collectors.toList());
     }
 
 }
