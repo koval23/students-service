@@ -36,7 +36,7 @@ public class StudentRepositoryImpl implements StudentRepository {
         List<Student> studentList = new ArrayList<>();
         for (Integer id : students.keySet()) {
             Student student = students.get(id);
-            if (student.getName().equals(name)) {
+            if (student.getName().equalsIgnoreCase(name)) {
                 studentList.add(student);
             }
         }

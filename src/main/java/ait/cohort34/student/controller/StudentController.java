@@ -43,7 +43,7 @@ public class StudentController {
         return studentService.addScore(id, studentScoreDto);
     }
 
-    @GetMapping("/score/student/{name}")
+    @GetMapping("/students/name/{name}")
     public Iterable<StudentDto> findStudentsByName(@PathVariable String name) {
         return studentService.findStudentsByName(name);
     }
