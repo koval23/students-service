@@ -5,16 +5,16 @@ import ait.cohort34.student.dto.StudentAddDto;
 import ait.cohort34.student.dto.StudentDto;
 import ait.cohort34.student.dto.StudentUpdateDto;
 import ait.cohort34.student.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
 @RestController
+@RequiredArgsConstructor
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
 
     @PostMapping("/student")
     public Boolean addStudent(@RequestBody StudentAddDto studentAddDto) {
@@ -23,12 +23,12 @@ public class StudentController {
 
     @GetMapping("/student/{id}")
     public StudentDto findStudentById(@PathVariable Integer id) {
-        return studentService.findStudentById(id);
+        return studentService.findStudent(id);
     }
 
     @DeleteMapping("/student/{id}")
     public StudentDto removeStudentById(@PathVariable Integer id) {
-        return studentService.removeStudentById(id);
+        return studentService.removeStudent(id);
     }
 
     @PutMapping("/student/{id}")
@@ -56,7 +56,7 @@ public class StudentController {
     @GetMapping("/students/exam/{exam}/minscore/{minScore}")
     public Iterable<StudentDto> findStudentsByMinScore(@PathVariable String exam,
                                                        @PathVariable Integer minScore) {
-        return studentService.findStudentsByMinScore(exam, minScore);
+        return studentService.findStudentsByExamMinScore(exam, minScore);
     }
 
 }

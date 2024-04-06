@@ -11,9 +11,9 @@ public interface StudentService {
 
     Boolean addStudent(StudentAddDto studentAddDto);
 
-    StudentDto findStudentById(Integer id);
+    StudentDto findStudent(Integer id);
 
-    StudentDto removeStudentById(Integer id);
+    StudentDto removeStudent(Integer id);
 
     StudentAddDto updateStudent(Integer id, StudentUpdateDto studentUpdateDto);
 
@@ -23,6 +23,6 @@ public interface StudentService {
 
     Long getStudentsNamesQuantity(Set<String> names);
 
-    Iterable<StudentDto> findStudentsByMinScore(String exam, Integer minScore);
+    Iterable<StudentDto> findStudentsByExamMinScore(String exam, Integer minScore);
 
 }
